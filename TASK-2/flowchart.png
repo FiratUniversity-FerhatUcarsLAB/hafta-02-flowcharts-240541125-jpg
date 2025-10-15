@@ -1,0 +1,41 @@
+digraph AlisverisSepetiSistemi {
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightblue];
+
+    Baslangic [label="Sistem Başlatıldı"];
+    AnaMenu [label="Ana Menü Göster"];
+    UrunListele [label="Ürünleri Listele"];
+    SepeteEkle [label="Sepete Ürün Ekle"];
+    SepettenCikar [label="Sepetten Ürün Çıkar"];
+    SepetiGoruntule [label="Sepeti Görüntüle"];
+    OdemeYap [label="Ödeme Yap"];
+    Cikis [label="Çıkış Yapılıyor", shape=box, color=lightgray];
+    Bitis [label="Sistem Sonu", shape=ellipse, style=filled, color=lightgray];
+
+    BosSepet [label="Sepet Boş", shape=diamond, color=lightcoral];
+    DoluSepet [label="Sepet Dolu", shape=diamond, color=lightgreen];
+
+    Baslangic -> AnaMenu;
+
+    AnaMenu -> UrunListele [label="1"];
+    AnaMenu -> SepeteEkle [label="2"];
+    AnaMenu -> SepettenCikar [label="3"];
+    AnaMenu -> SepetiGoruntule [label="4"];
+    AnaMenu -> OdemeYap [label="5"];
+    AnaMenu -> Cikis [label="6"];
+
+    UrunListele -> AnaMenu;
+    SepeteEkle -> AnaMenu;
+    SepettenCikar -> AnaMenu;
+    SepetiGoruntule -> AnaMenu;
+
+    OdemeYap -> BosSepet;
+    BosSepet -> AnaMenu [label="Sepet boş"];
+    BosSepet -> Bitis [label="Kullanıcı çıkmak istiyor"];
+
+    OdemeYap -> DoluSepet;
+    DoluSepet -> OdemeYap [label="Ödeme işlemi"];
+    DoluSepet -> AnaMenu [label="Sepet temizlendi"];
+
+    Cikis -> Bitis;
+}
