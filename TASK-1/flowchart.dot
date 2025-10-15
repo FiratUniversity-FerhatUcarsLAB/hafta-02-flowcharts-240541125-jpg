@@ -1,0 +1,33 @@
+digraph ATM_Para_Cekme {
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightblue];
+
+    Baslangic [label="Kart Takıldı"];
+    PinGiris [label="PIN Girişi"];
+    PinDogrulama [label="PIN Doğrulama"];
+    IslemSecimi [label="İşlem Seçimi"];
+    MiktarGiris [label="Tutar Gir"];
+    BakiyeKontrol [label="Bakiye Kontrolü"];
+    NakitVerme [label="Nakit Veriliyor"];
+    KartIade [label="Kart İade Ediliyor"];
+    Bitis [label="İşlem Sonu", shape=ellipse, style=filled, color=lightgray];
+
+    // Hatalı PIN girişi senaryosu
+    PinHata [label="PIN Hatalı", color=lightcoral];
+    YetersizBakiye [label="Yetersiz Bakiye", color=lightcoral];
+
+    Baslangic -> PinGiris;
+    PinGiris -> PinDogrulama;
+    PinDogrulama -> IslemSecimi [label="PIN doğru"];
+    PinDogrulama -> PinHata [label="PIN yanlış"];
+    PinHata -> PinGiris [label="Tekrar dene"];
+
+    IslemSecimi -> MiktarGiris [label="Para çekme seçildi"];
+    MiktarGiris -> BakiyeKontrol;
+    BakiyeKontrol -> NakitVerme [label="Yeterli bakiye"];
+    BakiyeKontrol -> YetersizBakiye [label="Yetersiz bakiye"];
+    YetersizBakiye -> IslemSecimi [label="Farklı işlem"];
+
+    NakitVerme -> KartIade;
+    KartIade -> Bitis;
+}
