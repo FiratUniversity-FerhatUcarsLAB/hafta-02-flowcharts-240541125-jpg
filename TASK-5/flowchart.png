@@ -1,0 +1,46 @@
+digraph AkilliEvGuvenlikSistemi {
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightblue];
+
+    // Durumlar / Adımlar
+    Giris [label="Giriş Ekranı"];
+    GirisBasarili [label="Giriş Başarılı"];
+    GirisBasarisiz [label="Giriş Başarısız", color=lightcoral];
+
+    AnaMenu [label="Ana Menü"];
+    GuvenlikAktifEt [label="Güvenliği Aktif Et"];
+    GuvenlikPasifEt [label="Güvenliği Devre Dışı Bırak"];
+    SensorKontrol [label="Sensörleri Kontrol Et"];
+    AlarmAktif [label="Alarm Aktif"];
+    AlarmKapat [label="Alarmı Kapat"];
+    BildirimGonder [label="Bildirim Gönder"];
+    Cikis [label="Çıkış Yap", color=lightgray];
+    SistemSonu [label="Sistem Sonu", shape=ellipse, style=filled, color=lightgray];
+
+    // Akışlar
+    Giris -> GirisBasarili [label="Doğru Bilgiler"];
+    Giris -> GirisBasarisiz [label="Hatalı Bilgiler"];
+    GirisBasarisiz -> SistemSonu;
+
+    GirisBasarili -> AnaMenu;
+
+    AnaMenu -> GuvenlikAktifEt [label="1"];
+    AnaMenu -> GuvenlikPasifEt [label="2"];
+    AnaMenu -> SensorKontrol [label="3"];
+    AnaMenu -> AlarmKapat [label="4"];
+    AnaMenu -> Cikis [label="5"];
+
+    GuvenlikAktifEt -> AnaMenu;
+    GuvenlikPasifEt -> AnaMenu;
+
+    SensorKontrol -> AlarmAktif [label="Sensör Tetiklendi"];
+    SensorKontrol -> BildirimGonder [label="Sensör Kontrol Edildi"];
+    SensorKontrol -> AnaMenu [label="Sensör Tetiklenmedi"];
+
+    AlarmAktif -> BildirimGonder;
+    BildirimGonder -> AnaMenu;
+
+    AlarmKapat -> AnaMenu;
+
+    Cikis -> SistemSonu;
+}
