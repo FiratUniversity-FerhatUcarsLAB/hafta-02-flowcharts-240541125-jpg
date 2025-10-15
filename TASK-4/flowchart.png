@@ -1,0 +1,40 @@
+digraph UniversiteDersKayitSistemi {
+    rankdir=LR;
+    node [shape=box, style=filled, color=lightblue];
+
+    // Durumlar
+    Giris [label="Giriş Ekranı"];
+    GirisBasarili [label="Giriş Başarılı"];
+    GirisBasarisiz [label="Giriş Başarısız", color=lightcoral];
+
+    AnaMenu [label="Ana Menü"];
+    DersListele [label="Dersleri Listele"];
+    DerseKayit [label="Derse Kayıt Ol"];
+    KayitliDersleriGor [label="Kayıtlı Dersleri Görüntüle"];
+    DersKaydiniSil [label="Ders Kaydını Sil"];
+    Cikis [label="Çıkış Yap", color=lightgray];
+    SistemSonu [label="Sistem Sonu", shape=ellipse, style=filled, color=lightgray];
+
+    // Akışlar
+    Giris -> GirisBasarili [label="Doğru bilgiler"];
+    Giris -> GirisBasarisiz [label="Hatalı bilgiler"];
+    GirisBasarisiz -> SistemSonu;
+
+    GirisBasarili -> AnaMenu;
+
+    AnaMenu -> DersListele [label="1"];
+    AnaMenu -> DerseKayit [label="2"];
+    AnaMenu -> KayitliDersleriGor [label="3"];
+    AnaMenu -> DersKaydiniSil [label="4"];
+    AnaMenu -> Cikis [label="5"];
+
+    DerseKayit -> DersListele [label="Ders Seçimi"];
+    DersListele -> DerseKayit;
+    DerseKayit -> AnaMenu;
+
+    KayitliDersleriGor -> AnaMenu;
+    DersKaydiniSil -> KayitliDersleriGor [label="Kayıtlı Dersleri Göster"];
+    DersKaydiniSil -> AnaMenu;
+
+    Cikis -> SistemSonu;
+}
